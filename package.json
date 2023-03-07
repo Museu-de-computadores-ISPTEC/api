@@ -1,0 +1,19 @@
+{
+  "name": "api",
+  "version": "0.0.1",
+  "description": "a api do museu de computadores do isptec",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Museu-de-computadores-ISPTEC/api.git"
+  },
+  "author": "Bernardo Sacuendi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Museu-de-computadores-ISPTEC/api/issues"
+  },
+  "homepage": "https://github.com/Museu-de-computadores-ISPTEC/api#readme"
+}
