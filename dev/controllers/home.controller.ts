@@ -5,7 +5,12 @@ let controller = new _Controller_;
 
 export default class HomeController{
     constructor(){}
+
     public Home(req: Request, res: Response){
         controller.SendResponse(res, 200, "hello world");
+    }
+
+    public Sobre(req: Request, res: Response){
+        controller.SendResponse(res, 200, "sobre");
     }
 }
