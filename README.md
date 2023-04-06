@@ -13,6 +13,29 @@ a presente API é dividida em camadas, cada uma responsável por um grupo de tar
 
 Cada uma das camadas citadas, possui um arquivo core situado na pasta core.
 
+## Funcionalidades (Lado dos visitantes)
+
+- [x] Esposições
+    - [x] Registro de exposições
+    - [x] Obtenção de exposições
+    - [x] Remoção de exposições
+    - [x] Atualização de uma exposição
+    ------------------------------------
+    - [] Registro de slide para uma exposição
+    - [] Obtenção de slides de uma exposição
+    - [] Remoção de slides de uma exposição
+    - [] Atualização dos dados de um slide
+    -------------------------------------
+    - [] Registro de um sub-slide
+    - [] Remoção de sub-slides
+    - [] Obtenção de sub-slides
+    - [] Atualização de sub-slides
+    --------------------------------------
+    - [] Revisção das funcionalidades
+    - [] Testes das funcionalidades
+
+
+
 ## Organização da API
 
 A seguir está descrito como a presente API está estruturada:
@@ -62,3 +85,6 @@ A seguir está descrito como a presente API está estruturada:
 - README.md: arquivo de documentação do projecto
 
 - tsconfig.json: arquivo de configuração do typescript
+
+## Rotas da API
+

@@ -17,7 +17,7 @@ export default abstract class _Router_ {
     private Make(){
         this.middlewares.forEach((middleware, index, array)=>{
             this.router.use(middleware);
-        })
+        });
 
         this.routes.forEach((route, index, array)=>{
             if(typeof route.middleware == 'undefined'){

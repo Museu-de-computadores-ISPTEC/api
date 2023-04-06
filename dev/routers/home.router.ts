@@ -1,6 +1,6 @@
 import _Router_ from "../core/router";
 import HomeController from "../controllers/home.controller";
-import Console from "../middlewares/console.middleware";
+import Console from "../middlewares/error-vaidatdor.middleware";
 
 class HomeRouter extends _Router_{
     constructor(public homeCtrl: HomeController = new HomeController){
