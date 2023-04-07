@@ -1,7 +1,6 @@
 import _Controller_ from "../core/controller";
 import { Request, Response } from "express";
 import { Exposicao, ExposicaoSlide, ExposicaoSlideSub } from '../db/models/exposicao';
-import { validationResult } from "express-validator";
 
 let controller = new _Controller_;
 
@@ -15,7 +14,6 @@ export default class ExposicaoController{
     //Rota: /exposicao
     public async Exposicoes(req: Request, res: Response){
         try{
-
             let exposicoes = await Exposicao.findAll();
             return controller.JsonResponse(res, exposicoes);
         }catch(error){
@@ -69,26 +67,12 @@ export default class ExposicaoController{
     //Rota: /exposicao/:id
     public async ExposicoesDeletar(req: Request, res: Response){
         try{
-            //buscando uma exposicao com base no id
-            let exposicoes = await Exposicao.findOne({
+             await Exposicao.destroy({
                 where: {
                     id: req.params.id
                 }
             });
-
-            //se não existir uma exposicao com o id escolhido, retorna um { exposicao: false }
-            if(exposicoes == null){
-                return controller.JsonResponse(res, {exposicao: false});
-            }else{
-                //se existir uma exposicao, deleta a exposicao e retorna um { exposicao: true}
-                await Exposicao.destroy({
-                    where: {
-                        id: req.params.id
-                    }
-                });
-                return controller.JsonResponse(res, {exposicao: true});
-            }
-
+            return controller.JsonResponse(res, {exposicao: true});
         }catch(error){
             return controller.ErrorResponse(res, error);
         }
@@ -99,25 +83,13 @@ export default class ExposicaoController{
     //Rota: /exposicao/:id
     public async ExposicoesAtualizar(req: Request, res: Response){
         try{
-            //buscando uma exposicao com base no id
-            let exposicoes = await Exposicao.findOne({
+             //se existir uma exposicao , atualiza os dados da exposicao e retorna um { exposicao: true}
+             await Exposicao.update(req.body, {
                 where: {
                     id: req.params.id
                 }
             });
-
-            //se não existir uma exposicao com o id escolhido, retorna um { exposicao: false }
-            if(exposicoes == null){
-                return controller.JsonResponse(res, {exposicao: false});
-            }else{
-                //se existir uma exposicao , atualiza os dados da exposicao e retorna um { exposicao: true}
-                await Exposicao.update(req.body, {
-                    where: {
-                        id: req.params.id
-                    }
-                });
-                return controller.JsonResponse(res, {exposicao: true});
-            }
+            return controller.JsonResponse(res, {exposicao: true});
 
         }catch(error){
             return controller.ErrorResponse(res, error);
@@ -125,5 +97,66 @@ export default class ExposicaoController{
     }
 
     ///////////////////// Slides /////////////////////////////
-    
+    //Método Responsável por retornar todos os slides de uma exposicao
+    //Método: GET
+    //Rota: /exposicao/:id/slides
+    public async Slides(req: Request, res: Response){
+        try{
+            let slides = await ExposicaoSlide.findAll({
+                where: {
+                    id_exposicao: req.params.id
+                }
+            });
+            return controller.JsonResponse(res, {exposicao: true, slides: slides}); 
+        }catch(error){
+            return controller.ErrorResponse(res, error);
+        }
+    }
+
+    //Método Responsável por registrar um slide
+    //Método: POST
+    //Rota: /exposicao/:id/slides
+    public async SlideRegistrar(req: Request, res: Response){
+        try{
+            let corpo = req.body;
+            corpo['id_exposicao'] = req.params.id;
+            let slide = await ExposicaoSlide.create(corpo);
+            return controller.JsonResponse(res, slide);
+        }catch(error){
+            return controller.ErrorResponse(res, error);
+        }
+    }
+
+    //Método Responsável por deletar um slide
+    //Método: DELETE
+    //Rota: /exposicao/:id/slides/:slide
+    public async SlideDeletar(req: Request, res: Response){
+        try{
+            await ExposicaoSlide.destroy({
+                where: {
+                    id: req.params.slide
+                }
+            })
+            return controller.JsonResponse(res, {slide: true});
+        }catch(error){
+            return controller.ErrorResponse(res, error);
+        }
+    }
+
+    //Método Responsável atualizar os dados de um slide um slide
+    //Método: PUT
+    //Rota: /exposicao/:id/slides/:slide
+    public async SlideAtualizar(req: Request, res: Response){
+        try{
+            await ExposicaoSlide.update(req.body, {
+                where: {
+                    id: req.params.slide
+                }
+            })
+            return controller.JsonResponse(res, {slide: true});
+        }catch(error){
+            return controller.ErrorResponse(res, error);
+        }
+    }
+
 }
