@@ -1,6 +1,6 @@
 import _Router_ from "../core/router";
 import ExposicaoController from "../controllers/exposicao.controller";
-import { exposicao, exposicao_registrar, slide_atualizar, slide_deletar, slide_registrar } from '../middlewares/validators/exposicao.middleware'
+import { exposicao, exposicao_registrar, slide_atualizar, slide_deletar, slide_registrar,  sub_slide_atualizar, sub_slide_deletar, sub_slide_registrar, sub_slides} from '../middlewares/validators/exposicao.middleware'
 
 
 class ExposicaoRouter extends _Router_{
@@ -18,6 +18,11 @@ class ExposicaoRouter extends _Router_{
             {method: 'post', url: '/:id/slides', function: this.exposicaoCtrl.SlideRegistrar, middleware: slide_registrar},
             {method: 'delete', url: '/:id/slides/:slide', function: this.exposicaoCtrl.SlideDeletar, middleware: slide_deletar},
             {method: 'put', url: '/:id/slides/:slide', function: this.exposicaoCtrl.SlideAtualizar, middleware: slide_atualizar},
+            /////////////subslides
+            {method: 'get', url: '/:id/slides/:slide', function: this.exposicaoCtrl.SubSlides, middleware: sub_slides},
+            {method: 'post', url: '/:id/slides/:slide', function: this.exposicaoCtrl.SubSlideRegistrar, middleware: sub_slide_registrar},
+            {method: 'delete', url: '/:id/slides/:slide/:subslide', function: this.exposicaoCtrl.SubSlideDeletar, middleware: sub_slide_deletar},
+            {method: 'put', url: '/:id/slides/:slide/:subslide', function: this.exposicaoCtrl.SubSlideAtualizar, middleware: sub_slide_atualizar},
         ], []);
 
         this.MakeRoutes();

@@ -97,6 +97,7 @@ export default class ExposicaoController{
     }
 
     ///////////////////// Slides /////////////////////////////
+
     //Método Responsável por retornar todos os slides de uma exposicao
     //Método: GET
     //Rota: /exposicao/:id/slides
@@ -105,7 +106,7 @@ export default class ExposicaoController{
             let slides = await ExposicaoSlide.findAll({
                 where: {
                     id_exposicao: req.params.id
-                }
+                },
             });
             return controller.JsonResponse(res, {exposicao: true, slides: slides}); 
         }catch(error){
@@ -154,6 +155,70 @@ export default class ExposicaoController{
                 }
             })
             return controller.JsonResponse(res, {slide: true});
+        }catch(error){
+            return controller.ErrorResponse(res, error);
+        }
+    }
+
+    ///////////////////// sub Slides /////////////////////////////
+
+     //Método Responsável por retornar todos os subslides de uma exposicao
+    //Método: GET
+    //Rota: /exposicao/:id/slides/:slide
+    public async SubSlides(req: Request, res: Response){
+        try{
+            let slides = await ExposicaoSlideSub.findAll({
+                where: {
+                    id_exposicao_slide: req.params.slide
+                }
+            });
+            return controller.JsonResponse(res, {exposicao: true, slide: true, subslides: slides}); 
+        }catch(error){
+            return controller.ErrorResponse(res, error);
+        }
+    }
+
+    //Método Responsável por registrar um subslide
+    //Método: POST
+    //Rota: /exposicao/:id/slides/:slide
+    public async SubSlideRegistrar(req: Request, res: Response){
+        try{
+            let corpo = req.body;
+            corpo['id_exposicao_slide'] = req.params.slide;
+            let slide = await ExposicaoSlideSub.create(corpo);
+            return controller.JsonResponse(res, slide);
+        }catch(error){
+            return controller.ErrorResponse(res, error);
+        }
+    }
+
+    //Método Responsável por deletar um subslide
+    //Método: DELETE
+    //Rota: /exposicao/:id/slides/:slide/:subslide
+    public async SubSlideDeletar(req: Request, res: Response){
+        try{
+            await ExposicaoSlideSub.destroy({
+                where: {
+                    id: req.params.subslide
+                }
+            })
+            return controller.JsonResponse(res, {subslide: true});
+        }catch(error){
+            return controller.ErrorResponse(res, error);
+        }
+    }
+
+     //Método Responsável atualizar os dados de um subslied
+    //Método: PUT
+    //Rota: /exposicao/:id/slides/:slide/:subslide
+    public async SubSlideAtualizar(req: Request, res: Response){
+        try{
+            await ExposicaoSlideSub.update(req.body, {
+                where: {
+                    id: req.params.subslide
+                }
+            });
+            return controller.JsonResponse(res, {subslide: true});
         }catch(error){
             return controller.ErrorResponse(res, error);
         }

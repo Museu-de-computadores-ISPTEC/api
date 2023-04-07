@@ -26,10 +26,10 @@ Cada uma das camadas citadas, possui um arquivo core situado na pasta core.
     - [x] Remoção de slides de uma exposição
     - [x] Atualização dos dados de um slide
     -------------------------------------
-    - [] Registro de um sub-slide
-    - [] Remoção de sub-slides
-    - [] Obtenção de sub-slides
-    - [] Atualização de sub-slides
+    - [x] Registro de um sub-slide
+    - [x] Remoção de sub-slides
+    - [x] Obtenção de sub-slides
+    - [x] Atualização de sub-slides
     --------------------------------------
     - [] Adicção de funcionalidades para upload de imagens
     - [] Revisção das funcionalidades

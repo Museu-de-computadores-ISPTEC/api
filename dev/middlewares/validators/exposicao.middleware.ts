@@ -13,6 +13,8 @@ let validators = {
     id_valido: param('id').isInt({min: 1}).withMessage("o id tem que ser inteiro e maior ou igual a 1"),
     slide_obrigatorio: param('slide').notEmpty().withMessage("o slide é obrigatório"),
     slide_valido: param('slide').isInt({min: 1}).withMessage("o slide tem que ser inteiro e maior ou igual a 1"),
+    subslide_obrigatorio: param('slide').notEmpty().withMessage("o slide é obrigatório"),
+    subslide_valido: param('slide').isInt({min: 1}).withMessage("o slide tem que ser inteiro e maior ou igual a 1"),
 
     titulo: body('titulo').notEmpty().withMessage("o titulo é obrigatório"),
     descricao: body('descricao').notEmpty().withMessage("a descricao é obrigatória"),
@@ -31,6 +33,13 @@ let validators = {
         let slide = await ExposicaoSlide.findByPk(req.params.slide);
         if(slide == null){
             return res.json({slide: false});
+        }
+        return next();
+    },
+    existe_subslide:  async (req: Request, res: Response, next: NextFunction)=>{
+        let slide = await ExposicaoSlideSub.findByPk(req.params.subslide);
+        if(slide == null){
+            return res.json({subslide: false});
         }
         return next();
     },
@@ -90,3 +99,59 @@ export let slide_atualizar = [
     validators.existe_exposicao,
     validators.existe_slide,
 ];
+
+///////////////// Sub-slides ///////////////////////
+
+//Middlewares para a rota GET::/exposicao/:id/slides/:slide
+export let sub_slides = [
+    validators.id_obrigatorio,
+    validators.id_valido,
+    validators.slide_obrigatorio,
+    validators.slide_valido,
+    ErrorValidator,
+    validators.existe_exposicao,
+    validators.existe_slide,
+]
+
+//Middlewares para a rota POST::/exposicao/:id/slides/:slide
+export let sub_slide_registrar = [
+    validators.id_obrigatorio,
+    validators.id_valido,
+    validators.slide_obrigatorio,
+    validators.slide_valido,
+    validators.subslide_obrigatorio,
+    validators.subslide_valido,
+    validators.titulo,
+    validators.conteudo,
+    validators.posicao,
+    ErrorValidator,
+    validators.existe_exposicao,
+    validators.existe_slide,
+];
+
+export let sub_slide_deletar = [
+    validators.id_obrigatorio,
+    validators.id_valido,
+    validators.slide_obrigatorio,
+    validators.slide_valido,
+    validators.subslide_obrigatorio,
+    validators.subslide_valido,
+    ErrorValidator,
+    validators.existe_exposicao,
+    validators.existe_slide,
+    validators.existe_subslide,
+];
+
+export let sub_slide_atualizar = [
+    validators.id_obrigatorio,
+    validators.id_valido,
+    validators.slide_obrigatorio,
+    validators.slide_valido,
+    validators.subslide_obrigatorio,
+    validators.subslide_valido,
+    ErrorValidator,
+    validators.existe_exposicao,
+    validators.existe_slide,
+    validators.existe_subslide,
+];
+
