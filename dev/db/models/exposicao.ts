@@ -16,6 +16,10 @@ ExposicaoSlideSub.init({
     posicao: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    image: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 }, {
     sequelize,
@@ -37,6 +41,10 @@ ExposicaoSlide.init({
     posicao: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    image: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 }, {
     sequelize,
@@ -57,7 +65,11 @@ Exposicao.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    img_capa: {
+    image: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    uuid: {
         type: DataTypes.STRING,
         allowNull: false
     }

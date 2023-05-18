@@ -1,12 +1,11 @@
 import _Router_ from "../core/router";
-import HomeController from "../controllers/home.controller";
-import Console from "../middlewares/error-vaidatdor.middleware";
+import a from "../controllers/home.controller";
 
 class HomeRouter extends _Router_{
-    constructor(public homeCtrl: HomeController = new HomeController){
+    constructor(public homeCtrl: any){
         super();
         this.SetRoutes([
-            {method: 'get', url: '/', function: this.homeCtrl.Home},
+            {method: 'get', url: '/', function: this.homeCtrl.Home.bind(homeCtrl)},
             {method: 'get', url: '/sobre', function: this.homeCtrl.Sobre},
         ], []);
 
@@ -14,4 +13,4 @@ class HomeRouter extends _Router_{
     }
 }
 
-export default new HomeRouter(new HomeController).GetRoutes();
+export default new HomeRouter(a).GetRoutes();

@@ -19,7 +19,6 @@ let validators = {
     titulo: body('titulo').notEmpty().withMessage("o titulo é obrigatório"),
     descricao: body('descricao').notEmpty().withMessage("a descricao é obrigatória"),
     conteudo: body('conteudo').notEmpty().withMessage("o conteudoé obrigatório"),
-    img_capa: body('img_capa').notEmpty().withMessage("a imagem de capa é obrigatória"),
 
     posicao: body('posicao').isInt({min: 1}).withMessage("a posição do slide tem que ser inteiro e maior ou igual a 1"),
     existe_exposicao:  async (req: Request, res: Response, next: NextFunction)=>{
@@ -57,7 +56,6 @@ export let exposicao = [
 export let exposicao_registrar = [
     validators.titulo,
     validators.descricao,
-    validators.img_capa,
     ErrorValidator
 ];
 
